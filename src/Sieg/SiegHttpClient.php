@@ -23,10 +23,10 @@ use App\Entities\CompanyEntity;
 class SiegHttpClient
 {
     /** @var string The base URL for the Brazil Bank REST API */
-    private const BASE_URL = 'https://api.sieg.com/api/v1/';
+    private const BASE_URL = 'https://api.sieg.com';
 
     /** @var CompanyEntity Company-related data entity */
-    private CompanyEntity $company;
+    public readonly CompanyEntity $company;
 
     /** @var HttpClient Internal HTTP client for making requests */
     private HttpClient $httpClient;
@@ -163,8 +163,10 @@ class SiegHttpClient
                 $freshToken = $this->getAccessToken();
 
                 return $this->httpClient->request($method, $url, $data, [
-                    'Authorization' => 'Bearer ' . $freshToken,
-                    'Accept'        => 'application/json'
+                    'Accept: application/json',
+                    'Content-Type: application/json',
+                    'Authorization: Bearer ' . $freshToken,
+                    'X-API-Key: ' . $this->company->apiKey,
                 ]);
             }
 

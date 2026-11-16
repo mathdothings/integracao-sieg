@@ -6,6 +6,7 @@ use App\Constants\SiegEndpoints;
 use App\Entities\CompanyEntity;
 use App\Http\Response;
 use App\Sieg\SiegHttpClient;
+use App\Core\Json;
 
 final class SiegService
 {
@@ -16,5 +17,14 @@ final class SiegService
     public function sendXml(string $xml): Response
     {
         return $this->client->apiRequest('POST', SiegEndpoints::SEND_XML, ['Xml' => base64_encode($xml)]);
+    }
+
+    public function countXml(array $payload): Response
+    {
+        return $this->client->apiRequest(
+            'POST',
+            SiegEndpoints::COUNT_XML,
+            Json::encode($payload)
+        );
     }
 }
