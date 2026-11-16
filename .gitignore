@@ -1,0 +1,13 @@
+.env*
+.env
+!.env.example
+*.pfx
+*.pem
+*.key
+*.log
+*.xml
+/vendor/
+/certs/
+/lote/
+/storage/
+/output/

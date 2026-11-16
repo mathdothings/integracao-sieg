@@ -1,0 +1,14 @@
+{
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        },
+        "files": [
+            "src/Support/environment.php",
+            "src/Support/dd.php"
+        ]
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.8"
+    }
+}
