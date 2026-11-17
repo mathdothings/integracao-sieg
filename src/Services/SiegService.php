@@ -27,4 +27,13 @@ final class SiegService
             Json::encode($payload)
         );
     }
+
+    public function downloadXml(array $payload): Response
+    {
+        return $this->client->apiRequest(
+            'POST',
+            SiegEndpoints::DOWNLOAD_XML,
+            Json::encode($payload)
+        );
+    }
 }

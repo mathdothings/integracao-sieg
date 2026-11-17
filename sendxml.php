@@ -126,6 +126,35 @@ $oAuthToken = 'your_api_key_or_o_auth_token';
 
 $dir = BASEPATH . '/output/xml/Yets SP XML Outubro 2026/';
 
+$totalFiles = 0;
+$totalBytes = 0;
+$min = PHP_INT_MAX;
+$max = 0;
+
+foreach (new DirectoryIterator($dir) as $f) {
+    if ($f->isDot() || !$f->isFile()) continue;
+    if (strtolower($f->getExtension()) !== 'xml') continue;
+
+    $size = $f->getSize();
+    $totalFiles++;
+    $totalBytes += $size;
+    if ($size < $min) $min = $size;
+    if ($size > $max) $max = $size;
+}
+
+if ($totalFiles > 0) {
+    printf(
+        "Files: %d\nTotal: %.2f MB\nAvg: %.2f KB\nMin: %.2f KB\nMax: %.2f MB\n",
+        $totalFiles,
+        $totalBytes / 1048576,
+        ($totalBytes / $totalFiles) / 1024,
+        $min / 1024,
+        $max / 1048576
+    );
+}
+
+die;
+
 $total = 0;
 foreach (new DirectoryIterator($dir) as $f) {
     if ($f->isDot() || !$f->isFile()) continue;
@@ -146,6 +175,7 @@ foreach (new DirectoryIterator($dir) as $file) {
         continue;
     }
 
+    $file->getSize();
     $path = $file->getPathname();
     $filename = $file->getFilename();
 
